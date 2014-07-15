@@ -29,7 +29,25 @@ io.sockets.on('connection', function(socket) {
 
     socket.send("hi");
 
-    socket.emit('image', canvasImage);
+    raf(function tick() {
+        ctx.font = '30px Impact';
+        ctx.rotate(r);
+        ctx.fillText("Awesome!", 50, 100);
+
+        var te = ctx.measureText('Awesome!');
+        ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+        ctx.beginPath();
+        ctx.lineTo(50, 102);
+        ctx.lineTo(50 + te.width, 102);
+        ctx.stroke();
+        r = r + 0.0000000001;
+
+        console.log(r);
+        socket.emit('image', canvas.toDataURL());
+
+        raf(tick);
+    });
+
 
     socket.on('disconnect', function() {
         console.log("server says bye client");
@@ -46,25 +64,12 @@ var Canvas = require('canvas'),
     canvas = new Canvas(200, 200),
     ctx = canvas.getContext('2d');
 
-ctx.font = '30px Impact';
-
-ctx.fillText("Awesome!", 50, 100);
-
-var te = ctx.measureText('Awesome!');
-ctx.strokeStyle = 'rgba(0,0,0,0.5)';
-ctx.beginPath();
-ctx.lineTo(50, 102);
-ctx.lineTo(50 + te.width, 102);
-ctx.stroke();
-
-var canvasImage = canvas.toDataURL();
-
-function draw() {
-    ctx.rotate(0.1);
-    requestAnimationFrame(draw);
-}
-requestAnimationFrame(draw);
+// requestAnimationFrame(draw);
 
 // var canvasImage = ctx.getImageData();
 
 // console.log('<img src="' + canvas.toDataURL() + '" />');
+
+var raf = require('raf');
+var canvasImage;
+var r = 0.0001;

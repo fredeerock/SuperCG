@@ -20,6 +20,7 @@
 
     var socket = io('http://localhost/');
     socket.on('connect', function() {
+
         socket.send('hi');
 
         socket.on('message', function(data) {
@@ -41,19 +42,19 @@
     //
     var once = 0;
 
+    var it;
+
     function draw() {
         // imageData = image;
         // console.log(image);
         if (image != undefined && once == 0) {
-        	var theimage = new Image();
-        	theimage.src = image;
+            var theimage = new Image();
+            theimage.src = image;
             //ctx.putImageData(image, 0, 0);
             ctx.drawImage(theimage, 0, 0);
             console.log(image);
-            once = 1;
+            once = 0;
         }
-
-
 
         requestAnimationFrame(draw);
     }
