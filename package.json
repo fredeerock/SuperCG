@@ -1,7 +1,7 @@
 {
   "name": "SuperCG",
   "description": "Javascript framework to that helps push graphics processing onto the server.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "dependencies": {
     "express": "3.x",
