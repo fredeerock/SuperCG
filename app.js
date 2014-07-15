@@ -24,11 +24,15 @@ var io = require('socket.io').listen(server);
 io.sockets.on('connection', function(socket) {
 
     socket.on('message', function(data) {
-    	console.log(data);
+        console.log("from client: " + data);
     });
 
+    socket.send("hi");
+
+    socket.emit('image', canvasImage);
+
     socket.on('disconnect', function() {
-    	console.log("bye");
+        console.log("server says bye client");
     });
 
 });
@@ -43,7 +47,7 @@ var Canvas = require('canvas'),
     ctx = canvas.getContext('2d');
 
 ctx.font = '30px Impact';
-ctx.rotate(0.1);
+
 ctx.fillText("Awesome!", 50, 100);
 
 var te = ctx.measureText('Awesome!');
@@ -52,5 +56,15 @@ ctx.beginPath();
 ctx.lineTo(50, 102);
 ctx.lineTo(50 + te.width, 102);
 ctx.stroke();
+
+var canvasImage = canvas.toDataURL();
+
+function draw() {
+    ctx.rotate(0.1);
+    requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+
+// var canvasImage = ctx.getImageData();
 
 // console.log('<img src="' + canvas.toDataURL() + '" />');

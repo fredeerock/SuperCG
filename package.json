@@ -6,7 +6,8 @@
   "dependencies": {
     "express": "3.x",
     "canvas": "*",
-    "socket.io": "1.*"
+    "socket.io": "1.*",
+    "raf": "2.*"
   },
   "devDependencies": {
   	"morgan": "1.*"

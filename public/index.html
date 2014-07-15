@@ -12,18 +12,54 @@
 <body>
 
     <p>boo</p>
+    <canvas id="cvs" width="500" height="500"></canvas>
 
-<script>
-var socket = io('http://localhost/');
-socket.on('connect', function() {
-    socket.send('hi');
 
-    socket.on('message', function(msg) {
-        // my msg
+    <script>
+    var image;
+
+    var socket = io('http://localhost/');
+    socket.on('connect', function() {
+        socket.send('hi');
+
+        socket.on('message', function(data) {
+            console.log("from server: " + data);
+        });
+
+        socket.on('image', function(data) {
+            console.log("from server: " + data);
+            image = data;
+        });
     });
-});
-</script>
 
+    var c = document.getElementById("cvs");
+    var ctx = c.getContext("2d");
+
+    // var imgData = image; //ctx.getImageData(0, 0, canvas.width, canvas.height);
+    console.log("the image " + image);
+
+    //
+    var once = 0;
+
+    function draw() {
+        // imageData = image;
+        // console.log(image);
+        if (image != undefined && once == 0) {
+        	var theimage = new Image();
+        	theimage.src = image;
+            //ctx.putImageData(image, 0, 0);
+            ctx.drawImage(theimage, 0, 0);
+            console.log(image);
+            once = 1;
+        }
+
+
+
+        requestAnimationFrame(draw);
+    }
+
+    requestAnimationFrame(draw);
+    </script>
 
 </body>
 
