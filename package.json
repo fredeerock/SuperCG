@@ -5,7 +5,8 @@
   "private": true,
   "dependencies": {
     "express": "3.x",
-    "canvas": "*"
+    "canvas": "*",
+    "socket.io": "1.*"
   },
   "devDependencies": {
   	"morgan": "1.*"
