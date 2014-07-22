@@ -30,20 +30,30 @@ io.sockets.on('connection', function(socket) {
     socket.send("hi");
 
     raf(function tick() {
+
+
         ctx.font = '30px Impact';
+        ctx.clearRect(0, 0, 500, 500);
+
         ctx.rotate(r);
+
         ctx.fillText("Awesome!", 50, 100);
 
         var te = ctx.measureText('Awesome!');
-        ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+        ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+
         ctx.beginPath();
         ctx.lineTo(50, 102);
         ctx.lineTo(50 + te.width, 102);
+
         ctx.stroke();
-        r = r + 0.0000000001;
+
+        r = r + 0.00005;
 
         console.log(r);
+
         socket.emit('image', canvas.toDataURL());
+
 
         raf(tick);
     });
@@ -61,7 +71,7 @@ io.sockets.on('connection', function(socket) {
 
 var Canvas = require('canvas'),
     Image = Canvas.Image,
-    canvas = new Canvas(200, 200),
+    canvas = new Canvas(500, 500),
     ctx = canvas.getContext('2d');
 
 // requestAnimationFrame(draw);

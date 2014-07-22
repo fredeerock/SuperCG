@@ -28,7 +28,7 @@
         });
 
         socket.on('image', function(data) {
-            console.log("from server: " + data);
+            // console.log("from server: " + data);
             image = data;
         });
     });
@@ -48,10 +48,14 @@
         // imageData = image;
         // console.log(image);
         if (image != undefined && once == 0) {
+
             var theimage = new Image();
             theimage.src = image;
             //ctx.putImageData(image, 0, 0);
+            ctx.clearRect(0, 0, 500, 500);
+
             ctx.drawImage(theimage, 0, 0);
+
             console.log(image);
             once = 0;
         }
